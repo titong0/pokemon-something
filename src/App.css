@@ -1,5 +1,7 @@
+
 .pokemon-container {
-  @apply border-4 border-red-400 rounded-sm bg-gray-800 m-2 p-1;
+  @apply border-red-400 rounded-sm p-1;
+  background-color: #ffcc00;
 }
 
 .pokemon-image {

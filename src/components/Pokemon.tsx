@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { getPokemon, typesURLs } from "../service";
 import { useState, useEffect } from "react";
 
@@ -13,10 +12,9 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
 
   return (
     <div>
-      <a href="/">back to Search</a>
       {pkmnData !== null ? (
         <div className="pokemon-container">
-          <h1 className="text-6xl text-center mb-1 uppercase text-blue-200 font-semibold">
+          <h1 className="text-6xl text-center mb-3 capitalize text-gray-900 font-semibold">
             {pkmnData.species.name}
           </h1>
           <div className="grid sm:grid-cols-5 grid-cols-2 gap-2 items-start ">

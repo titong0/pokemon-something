@@ -1,6 +1,8 @@
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  greedy: [/safe$/],
+  options: {
+    safelist: ["bg-pink-300", "bg-red-300"],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},

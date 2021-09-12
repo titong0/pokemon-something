@@ -6,7 +6,7 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
   const [typeData, setTypeData] = useState<typeInterface | null>(null);
   useEffect(() => {
     getType(match.params.type).then((i) => setTypeData(i));
-  }, []);
+  }, [match.params.type]);
   return (
     <div
       style={{ backgroundColor: typeClrs[match.params.type.toUpperCase()] }}

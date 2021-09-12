@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = (props) => {
   };
   return (
     <form
-      className={`safe flex flex-col bg-${props.color}-300 p-3`}
+      className={`flex flex-col bg-${props.color}-300 p-3`}
       onSubmit={(e) => handleSubmit(e, props.infoType)}
     >
       <h2 className="text-2xl">Inspect a {props.infoType}</h2>

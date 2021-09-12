@@ -51,12 +51,14 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
               <span className="flex row-start-2 col-start-1 mt-1 ">
                 <a href={`/type/${pkmnData.types[0].type.name}`}>
                   <img
+                    className="type-img"
                     src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
                     alt={pkmnData.types[0].type.name}
                   />
                 </a>
                 <a href={`/type/${pkmnData.types[1]?.type.name}`}>
                   <img
+                    className="type-img"
                     src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
                     alt={pkmnData.types[1]?.type.name}
                   />

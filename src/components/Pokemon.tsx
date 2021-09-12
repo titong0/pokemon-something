@@ -1,8 +1,9 @@
-import { getPokemon, typesURLs } from "../service";
+import { getPokemon, typesImgs } from "../service";
 import { useState, useEffect } from "react";
+import { PokemonInterface } from "../interfaces";
 
 const Pokemon: React.FC<{ match: any }> = ({ match }) => {
-  const [pkmnData, setpkmnData] = useState<any>(null);
+  const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
   const [showShiny, setshowShiny] = useState(false);
   useEffect(() => {
     getPokemon(match.params.name).then((i) => {
@@ -14,7 +15,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
     <div>
       {pkmnData !== null ? (
         <div className="pokemon-container">
-          <h1 className="text-6xl text-center mb-3 capitalize text-gray-900 font-semibold">
+          <h1 className="text-6xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
           <div className="grid sm:grid-cols-5 grid-cols-2 gap-2 items-start ">
@@ -22,19 +23,22 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
               <div className="pokemon-image">
                 <img
                   className="w-48"
-                  src={pkmnData.sprites.front_shiny}
+                  src={pkmnData.sprites.front_shiny ?? ""}
                   style={{ display: `${!showShiny ? "none" : "block"}` }}
                   alt=""
                 />
                 <img
                   className="w-48"
-                  src={pkmnData.sprites.front_default}
+                  src={pkmnData.sprites.front_default ?? ""}
                   style={{ display: `${!showShiny ? "none" : "block"}` }}
                   alt=""
                 />
                 <img
                   className="w-48"
-                  src={pkmnData.sprites.other["official-artwork"].front_default}
+                  src={
+                    pkmnData.sprites.other["official-artwork"].front_default ??
+                    ""
+                  }
                   style={{ display: `${showShiny ? "none" : "block"}` }}
                   alt=""
                 />
@@ -47,13 +51,13 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
               <span className="flex row-start-2 col-start-1 mt-1 ">
                 <a href={`/type/${pkmnData.types[0].type.name}`}>
                   <img
-                    src={typesURLs[pkmnData.types[0].type.name.toUpperCase()]}
+                    src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
                     alt={pkmnData.types[0].type.name}
                   />
                 </a>
                 <a href={`/type/${pkmnData.types[1]?.type.name}`}>
                   <img
-                    src={typesURLs[pkmnData.types[1]?.type.name.toUpperCase()]}
+                    src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
                     alt={pkmnData.types[1]?.type.name}
                   />
                 </a>
@@ -61,7 +65,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
             </div>
             <div className="moves">
               <h2 className="text-4xl uppercase text-black ">moves</h2>
-              <ul>
+              <ul className="list-disc list-inside ml-1">
                 {pkmnData.moves
                   .filter(
                     (move: any) =>
@@ -74,7 +78,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                         <a
                           href={`/move/${move.move.name}`}
                           key={move.move.name}
-                          className="capitalize ml-1"
+                          className="capitalize"
                         >
                           {move.move.name.replaceAll("-", " ")}
                         </a>

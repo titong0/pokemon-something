@@ -11,7 +11,7 @@ export const getType = (type: string): Promise<any> => {
   });
 };
 
-export const typesURLs: any = {
+export const typesImgs: any = {
   NORMAL:
     "https://cdn2.bulbagarden.net/upload/thumb/9/95/Normal_icon_SwSh.png/64px-Normal_icon_SwSh.png",
   FIGHTING:
@@ -43,4 +43,25 @@ export const typesURLs: any = {
   DARK: "https://cdn2.bulbagarden.net/upload/thumb/d/d5/Dark_icon_SwSh.png/64px-Dark_icon_SwSh.png",
   FAIRY:
     "https://cdn2.bulbagarden.net/upload/thumb/c/c6/Fairy_icon_SwSh.png/64px-Fairy_icon_SwSh.png",
+};
+
+export const typeClrs: any = {
+  NORMAL: "#9098a2",
+  FIGHTING: "#cf3f6a",
+  FLYING: "#8fa8de",
+  POISON: "#ab6ac8",
+  GROUND: "#d97846",
+  ROCK: "#c8b78b",
+  BUG: "#90c02c",
+  GHOST: "#5269ac",
+  STEEL: "#5a8fa1",
+  FIRE: "#fe9c53",
+  WATER: "#4d90d6",
+  GRASS: "#64bb5c",
+  ELECTRIC: "#f4d23b",
+  PSYCHIC: "#f97077",
+  ICE: "#73cebf",
+  DRAGON: "#096dc3",
+  DARK: "#5a5365",
+  FAIRY: "#ec90e7",
 };

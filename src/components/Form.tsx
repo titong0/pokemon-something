@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 export interface FormProps {
   infoType: string;
@@ -7,23 +8,19 @@ export interface FormProps {
 
 const Form: React.FC<FormProps> = (props) => {
   const [data, setData] = useState("");
+  const routerHistory = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData(e.target.value);
   };
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    infoType: string
-  ) => {
-    window.history.replaceState({}, "Pokemon", "/" + data);
-    window.location.href = `${infoType}/${data}`;
-    e.preventDefault();
+  const handleSubmit = () => {
+    routerHistory.push(`${props.infoType}/${data.toLowerCase()}`);
   };
   return (
     <form
       className={`flex flex-col bg-${props.color}-300 p-3`}
-      onSubmit={(e) => handleSubmit(e, props.infoType)}
+      onSubmit={handleSubmit}
     >
       <h2 className="text-2xl">Inspect a {props.infoType}</h2>
       <input

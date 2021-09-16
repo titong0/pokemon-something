@@ -8,8 +8,8 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Nav />
       <Router>
+        <Nav />
         <Switch>
           <Route path="/type/:type" component={Type} exact />
           <Route path="/pokemon/:name" component={Pokemon} exact />

@@ -82,3 +82,42 @@ export interface typeInterface {
     url: string;
   };
 }
+
+export interface SpeciesInterface {
+  color: {
+    name: string;
+    url: string;
+  };
+  evolution_chain: string;
+  is_baby: boolean;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  name: string;
+}
+
+export interface EvolChainInterface {
+  chain: {
+    evolves_to: {
+      evolution_details: {
+        min_level: number;
+        trigger: {
+          name: string;
+          url: string;
+        };
+      }[];
+
+      evolves_to: {
+        species: {
+          name: string;
+          url: string;
+        };
+      }[];
+
+      species: {
+        name: string;
+        url: string;
+      };
+    }[];
+  };
+  id: number;
+}

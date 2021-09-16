@@ -1,25 +1,58 @@
-import { getPokemon, typesImgs } from "../service";
+import {
+  getPokemon,
+  typesImgs,
+  getEvolutionChain,
+  getSpecies,
+  betterColors,
+} from "../service";
 import { useState, useEffect } from "react";
-import { PokemonInterface } from "../interfaces";
+import {
+  PokemonInterface,
+  EvolChainInterface,
+  SpeciesInterface,
+} from "../interfaces";
 
 const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
+  const [pkmnSpecies, setpkmnSpecies] = useState<SpeciesInterface | null>(null);
+  const [evolChain, setevolChain] = useState<EvolChainInterface | null>(null);
   const [showShiny, setshowShiny] = useState(false);
+
   useEffect(() => {
     getPokemon(match.params.name).then((i) => {
       setpkmnData(i);
     });
+    getSpecies(match.params.name)
+      .then((i) => {
+        setpkmnSpecies(i);
+      })
+      .then((_) => {
+        // pkmnSpecies?.evolution_chain;
+      });
   }, [match.params.name]);
 
   return (
     <div>
       {pkmnData !== null ? (
-        <div className="pokemon-container">
+        <div
+          className="pokemon-container"
+          style={{
+            backgroundColor: betterColors[pkmnSpecies?.color?.name || ""],
+          }}
+        >
           <h1 className="text-6xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
-          <div className="grid sm:grid-cols-5 grid-cols-2 gap-2 items-start ">
+          <div className="grid sm:grid-cols-2 gap-2 items-start ">
             <div className="col-span-2">
+              <pre>
+                {/* {JSON.stringify(
+                  evolutionChain.chain.evolves_to[0].species,
+                  null,
+                  2
+                )} */}
+                {(document.title = pkmnSpecies?.name || "loading")}
+              </pre>
               <div className="pokemon-image">
                 <img
                   className="w-48"
@@ -31,7 +64,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                   className="w-48"
                   src={pkmnData.sprites.front_default ?? ""}
                   style={{ display: `${!showShiny ? "none" : "block"}` }}
-                  alt=""
+                  alt={pkmnData.species.name}
                 />
                 <img
                   className="w-48"
@@ -43,10 +76,10 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                   alt=""
                 />
 
-                <button
+                {/* <button
                   className={`border-4 rounded-lg bg-red-500 hover:bg-red-700 h-10 w-14`}
                   onClick={() => setshowShiny(!showShiny)}
-                ></button>
+                ></button> */}
               </div>
               <span className="flex row-start-2 col-start-1 mt-1 ">
                 <a href={`/type/${pkmnData.types[0].type.name}`}>

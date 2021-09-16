@@ -5,6 +5,17 @@ export const getPokemon = (pokemon: string): Promise<any> => {
     return res.json();
   });
 };
+export const getSpecies = (pokemon: string): Promise<any> => {
+  return fetch(`${API}/pokemon-species/${pokemon}`).then((res) => {
+    return res.json();
+  });
+};
+
+export const getEvolutionChain = (evolutionChainId: string): Promise<any> => {
+  return fetch(`${API}/evolution-chain/${evolutionChainId}`).then((res) => {
+    return res.json();
+  });
+};
 export const getType = (type: string): Promise<any> => {
   return fetch(`${API}/type/${type}`).then((res) => {
     return res.json();
@@ -64,4 +75,19 @@ export const typeClrs: any = {
   DRAGON: "#096dc3",
   DARK: "#5a5365",
   FAIRY: "#ec90e7",
+};
+
+// pokemon.species has a color property which gives the name of the color, this object
+// has the purpose of taking a color and giving a cooler one
+export const betterColors: any = {
+  black: "#cccccc",
+  blue: "#da6338",
+  brown: "#c88751",
+  gray: "#dddddd",
+  green: "#8abd8a",
+  pink: "#ed829c",
+  purple: "#c7b6d8",
+  red: "#f44336",
+  white: "#eeeeee",
+  yellow: "#e9cb62",
 };

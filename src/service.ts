@@ -1,3 +1,4 @@
+import { EvolChainInterface } from "./interfaces";
 const API = "https://pokeapi.co/api/v2";
 
 export const getPokemon = (pokemon: string): Promise<any> => {
@@ -11,11 +12,12 @@ export const getSpecies = (pokemon: string): Promise<any> => {
   });
 };
 
-export const getEvolutionChain = (evolutionChainId: string): Promise<any> => {
-  return fetch(`${API}/evolution-chain/${evolutionChainId}`).then((res) => {
+export const getEvolutionChain = (url: string): Promise<any> => {
+  return fetch(`${url}`).then((res) => {
     return res.json();
   });
 };
+
 export const getType = (type: string): Promise<any> => {
   return fetch(`${API}/type/${type}`).then((res) => {
     return res.json();
@@ -55,6 +57,31 @@ export const typesImgs: any = {
   FAIRY:
     "https://cdn2.bulbagarden.net/upload/thumb/c/c6/Fairy_icon_SwSh.png/64px-Fairy_icon_SwSh.png",
 };
+
+export const getEvolType = (evolChain: EvolChainInterface): evolType => {
+  if (evolChain.chain.species.name === "eevee") return evolType.Eevee;
+  if (evolChain.chain.evolves_to[0] === undefined) {
+    return evolType.NoEvol;
+  }
+  let currentPkmn = evolChain.chain;
+  while (true) {
+    if (currentPkmn.evolves_to[0] == undefined) {
+      break;
+    }
+    if (currentPkmn.evolves_to[0] && currentPkmn.evolves_to[1]) {
+      return evolType.Multiple;
+    }
+    break;
+  }
+  return evolType.Normal;
+};
+
+export enum evolType {
+  NoEvol = "no evolution",
+  Normal = "normal evolution chain",
+  Multiple = "multiple evolutions",
+  Eevee = "Eevee",
+}
 
 export const typeClrs: any = {
   NORMAL: "#9098a2",

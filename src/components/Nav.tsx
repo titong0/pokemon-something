@@ -1,7 +1,13 @@
 import { BrowserRouter as Router, NavLink as Link } from "react-router-dom";
 import React from "react";
+import { useState } from "react";
+
+const random = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 const Nav = () => {
+  const [randomPkmn, setrandomPkmn] = useState(random(1, 898));
   return (
     <nav
       className="bg-yellow-200 py-3 text-gray-300"
@@ -15,7 +21,12 @@ const Nav = () => {
           <Link to="/advanced-search">Advanced search</Link>
         </li>
         <li>
-          <Link to={"/pokemon/" + Math.floor(Math.random() * 898)}>
+          <Link
+            to={"/pokemon/" + randomPkmn}
+            onClick={() => {
+              setrandomPkmn(random(1, 898));
+            }}
+          >
             Random pokemon
           </Link>
         </li>

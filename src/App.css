@@ -13,12 +13,22 @@
 }
 
 .moves {
-  /* @apply col-span-3 sm:text-xl text-xl; */
+  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 pb-4 border-2 ;
 }
 
 /* .pokemon-container span img {
   @apply;
 } */
+.overflow-y-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 90px;
+  background-color: black;
+}
+
+.overflow-y-scroll::-webkit-scrollbar-thumb {
+  background-color: hsl(0, 0%, 80%);
+}
+
 .type-img {
   @apply m-1 inline-block filter drop-shadow-xl transform hover:scale-105;
 }

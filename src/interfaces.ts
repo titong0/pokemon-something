@@ -118,6 +118,10 @@ export interface EvolChainInterface {
         url: string;
       };
     }[];
+    species: {
+      name: string;
+      url: string;
+    };
   };
   id: number;
 }

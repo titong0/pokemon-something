@@ -4,6 +4,7 @@ import {
   getEvolutionChain,
   getSpecies,
   betterColors,
+  getEvolType,
 } from "../service";
 import { useState, useEffect } from "react";
 import {
@@ -12,6 +13,9 @@ import {
   SpeciesInterface,
 } from "../interfaces";
 
+import Moves from "./Moves";
+import Chain from "./Chain";
+
 const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
   const [pkmnSpecies, setpkmnSpecies] = useState<SpeciesInterface | null>(null);
@@ -19,15 +23,18 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const [showShiny, setshowShiny] = useState(false);
 
   useEffect(() => {
-    getPokemon(match.params.name).then((i) => {
+    setpkmnData(null);
+    getPokemon(match.params.name).then((i: PokemonInterface) => {
+      document.title = i.species.name;
       setpkmnData(i);
     });
     getSpecies(match.params.name)
       .then((i) => {
         setpkmnSpecies(i);
+        return i;
       })
-      .then((_) => {
-        // pkmnSpecies?.evolution_chain;
+      .then((i) => {
+        getEvolutionChain(i.evolution_chain.url).then((i) => setevolChain(i));
       });
   }, [match.params.name]);
 
@@ -45,84 +52,28 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
           </h1>
           <div className="grid sm:grid-cols-2 gap-2 items-start ">
             <div className="col-span-2">
-              <pre>
-                {/* {JSON.stringify(
-                  evolutionChain.chain.evolves_to[0].species,
-                  null,
-                  2
-                )} */}
-                {(document.title = pkmnSpecies?.name || "loading")}
-              </pre>
-              <div className="pokemon-image">
-                <img
-                  className="w-48"
-                  src={pkmnData.sprites.front_shiny ?? ""}
-                  style={{ display: `${!showShiny ? "none" : "block"}` }}
-                  alt=""
-                />
-                <img
-                  className="w-48"
-                  src={pkmnData.sprites.front_default ?? ""}
-                  style={{ display: `${!showShiny ? "none" : "block"}` }}
-                  alt={pkmnData.species.name}
-                />
-                <img
-                  className="w-48"
-                  src={
-                    pkmnData.sprites.other["official-artwork"].front_default ??
-                    ""
-                  }
-                  style={{ display: `${showShiny ? "none" : "block"}` }}
-                  alt=""
-                />
-
-                {/* <button
-                  className={`border-4 rounded-lg bg-red-500 hover:bg-red-700 h-10 w-14`}
-                  onClick={() => setshowShiny(!showShiny)}
-                ></button> */}
-              </div>
-              <span className="flex row-start-2 col-start-1 mt-1 ">
-                <a href={`/type/${pkmnData.types[0].type.name}`}>
-                  <img
-                    className="type-img"
-                    src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
-                    alt={pkmnData.types[0].type.name}
-                  />
-                </a>
-                <a href={`/type/${pkmnData.types[1]?.type.name}`}>
-                  <img
-                    className="type-img"
-                    src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
-                    alt={pkmnData.types[1]?.type.name}
-                  />
-                </a>
-              </span>
+              {evolChain ? (
+                <Chain chain={evolChain} pkmnData={pkmnData}></Chain>
+              ) : null}
             </div>
-            <div className="moves">
-              <h2 className="text-4xl uppercase text-black ">moves</h2>
-              <ul className="list-disc list-inside ml-1">
-                {pkmnData.moves
-                  .filter(
-                    (move: any) =>
-                      move.version_group_details[0].level_learned_at !== 0
-                  )
-                  .map((move: any, index: number) => {
-                    // if (index > 5) return;
-                    return (
-                      <li>
-                        <a
-                          href={`/move/${move.move.name}`}
-                          key={move.move.name}
-                          className="capitalize"
-                        >
-                          {move.move.name.replaceAll("-", " ")}
-                        </a>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
+            <span className="flex row-start-2 col-start-1 mt-1 ">
+              <a href={`/type/${pkmnData.types[0].type.name}`}>
+                <img
+                  className="type-img"
+                  src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
+                  alt={pkmnData.types[0].type.name}
+                />
+              </a>
+              <a href={`/type/${pkmnData.types[1]?.type.name}`}>
+                <img
+                  className="type-img"
+                  src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
+                  alt={pkmnData.types[1]?.type.name}
+                />
+              </a>
+            </span>
           </div>
+          <Moves pkmnData={pkmnData}></Moves>
         </div>
       ) : (
         "loading..."

@@ -5,8 +5,9 @@ export interface FormProps {}
 const Search: React.FC<FormProps> = () => {
   return (
     <div>
-      <Form infoType="pokemon" color="pink" />
+      <Form infoType="pokemon" color="yellow" />
       <Form infoType="type" color="red" />
+      <Form infoType="move" color="blue" />
     </div>
   );
 };

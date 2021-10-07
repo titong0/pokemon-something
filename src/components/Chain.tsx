@@ -1,7 +1,7 @@
 import {
   EvolChainInterface,
   PokemonInterface,
-  evolution_details,
+  // evolution_details,
 } from "../interfaces";
 import { getEvolType, getImgFromSpecies, idFromSpecies } from "../helpers";
 import { useHistory } from "react-router";
@@ -11,16 +11,15 @@ export interface ChainProps {
   pkmnData: PokemonInterface;
 }
 
-const evolutionText = (evolDetails: evolution_details): string => {
-  const { name } = evolDetails.trigger;
-  if(name === "level-up"){
-    if(evolDetails){
-      
-    }
-  }
+// const evolutionText = (evolDetails: evolution_details): string => {
+//   const { name } = evolDetails.trigger;
+//   if (name === "level-up") {
+//     if (evolDetails) {
+//     }
+//   }
 
-  return "";
-};
+//   return "";
+// };
 
 const Chain: React.FC<ChainProps> = (props) => {
   const routerHistory = useHistory();
@@ -38,6 +37,7 @@ const Chain: React.FC<ChainProps> = (props) => {
                   routerHistory.push("" + idFromSpecies(i.species.url))
                 }
                 src={getImgFromSpecies(i.species.url)}
+                alt={i.species.name}
               />
             </div>
           ))}
@@ -63,8 +63,8 @@ const Chain: React.FC<ChainProps> = (props) => {
   );
 };
 
-const pkmnImages = () => {
-  return <div></div>;
-};
+// const pkmnImages = () => {
+//   return <div></div>;
+// };
 
 export default Chain;

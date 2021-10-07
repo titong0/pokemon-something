@@ -4,7 +4,7 @@ import {
   getEvolutionChain,
   getSpecies,
 } from "../service";
-import { betterColors, getEvolType } from "../helpers";
+import { betterColors } from "../helpers";
 import { useState, useEffect } from "react";
 import {
   PokemonInterface,
@@ -19,7 +19,6 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
   const [pkmnSpecies, setpkmnSpecies] = useState<SpeciesInterface | null>(null);
   const [evolChain, setevolChain] = useState<EvolChainInterface | null>(null);
-  const [showShiny, setshowShiny] = useState(false);
 
   useEffect(() => {
     setpkmnData(null);

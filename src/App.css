@@ -21,7 +21,8 @@
 }
 
 .eevee-evolution {
-  @apply grid grid-cols-3 grid-rows-3 justify-items-center h-96;
+  @apply grid grid-cols-3 grid-rows-3 justify-items-center;
+  height: 60vh;
 }
 .eevee-evolution img {
   cursor: pointer;

@@ -1,77 +1,67 @@
-import { EvolChainInterface, PokemonInterface } from "../interfaces";
-import { getEvolType } from "../service";
+import {
+  EvolChainInterface,
+  PokemonInterface,
+  evolution_details,
+} from "../interfaces";
+import { getEvolType, getImgFromSpecies, idFromSpecies } from "../helpers";
+import { useHistory } from "react-router";
 
 export interface ChainProps {
   chain: EvolChainInterface;
   pkmnData: PokemonInterface;
 }
 
-const pad = (number: number | string, length: number): string => {
-  let str = "" + number;
-  while (str.length < length) {
-    str = "0" + str;
+const evolutionText = (evolDetails: evolution_details): string => {
+  const { name } = evolDetails.trigger;
+  if(name === "level-up"){
+    if(evolDetails){
+      
+    }
   }
-  return str;
-};
 
-const getChain = (chain: EvolChainInterface) => {
-  let current = chain.chain;
-  const arr = [];
-  while (true) {
-    let thisone = (
-      <div className="border-4">
-        {current.species.name}
-        {current.evolves_to.map((i) => (
-          <div>
-            evolves to {i.species.name}
-            {i.evolves_to ? " evolves to" : null}
-            {i.evolves_to.map((i) => {
-              return <span> {i.species.name}</span>;
-            })}
-          </div>
-        ))}
-      </div>
-    );
-    arr.push(thisone);
-    break;
-  }
-  console.log(arr);
-  return arr;
+  return "";
 };
 
 const Chain: React.FC<ChainProps> = (props) => {
+  const routerHistory = useHistory();
+
   const evolType = getEvolType(props.chain);
   return (
     <div>
-      {/* <pre>{props.chain ? <div>{getChain(props.chain)}</div> : null}</pre> */}
-
       {evolType === "Eevee" ? (
-        <div>EEVEE</div>
+        <div className="eevee-evolution">
+          {props.chain.chain.evolves_to.map((i) => (
+            <div>
+              {i.evolution_details[0].trigger?.name === "level-up" ? "" : null}
+              <img
+                onClick={() =>
+                  routerHistory.push("" + idFromSpecies(i.species.url))
+                }
+                src={getImgFromSpecies(i.species.url)}
+              />
+            </div>
+          ))}
+          <img
+            className="row-start-2 col-start-2"
+            src={getImgFromSpecies(props.chain.chain.species.url)}
+            onClick={() =>
+              routerHistory.push(
+                "" + idFromSpecies(props.chain.chain.species.url)
+              )
+            }
+            alt=""
+          />
+        </div>
       ) : evolType === "multiple evolutions" ? (
         <div>MULTIPLE EVOLUTIONS</div>
       ) : evolType === "normal evolution chain" ? (
-        <div>EVOLVES NORMALLY</div>
+        <div>{}</div>
       ) : (
         <div>lmao doesnt even evolve</div>
       )}
-      <div className="pokemon-image">
-        <img
-          className="w-48"
-          src={props.pkmnData.sprites.front_default ?? ""}
-          alt={props.pkmnData.species.name}
-        />
-        <img
-          className="w-48"
-          src={
-            props.pkmnData.sprites.other["official-artwork"].front_default ?? ""
-          }
-          alt=""
-        />
-      </div>
     </div>
   );
 };
-
 
 const pkmnImages = () => {
   return <div></div>;

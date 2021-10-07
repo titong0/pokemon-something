@@ -13,9 +13,16 @@
 }
 
 .moves {
-  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 pb-4 border-2 ;
+  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 pb-4 border-2;
 }
 
+.eevee-evolution {
+  @apply grid grid-cols-3 grid-rows-3 justify-items-center h-96;
+}
+.eevee-evolution img {
+  cursor: pointer;
+  height: 100%;
+}
 /* .pokemon-container span img {
   @apply;
 } */

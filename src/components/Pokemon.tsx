@@ -3,9 +3,8 @@ import {
   typesImgs,
   getEvolutionChain,
   getSpecies,
-  betterColors,
-  getEvolType,
 } from "../service";
+import { betterColors, getEvolType } from "../helpers";
 import { useState, useEffect } from "react";
 import {
   PokemonInterface,
@@ -50,12 +49,12 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
           <h1 className="text-6xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
+          <div className="col-span-2">
+            {evolChain ? (
+              <Chain chain={evolChain} pkmnData={pkmnData}></Chain>
+            ) : null}
+          </div>
           <div className="grid sm:grid-cols-2 gap-2 items-start ">
-            <div className="col-span-2">
-              {evolChain ? (
-                <Chain chain={evolChain} pkmnData={pkmnData}></Chain>
-              ) : null}
-            </div>
             <span className="flex row-start-2 col-start-1 mt-1 ">
               <a href={`/type/${pkmnData.types[0].type.name}`}>
                 <img

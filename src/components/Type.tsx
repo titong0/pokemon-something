@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { typesImgs, getType, typeClrs } from "../service";
+import { typesImgs, getType } from "../service";
+import { typeClrs } from "../helpers";
 import { typeInterface } from "../interfaces";
 
 const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {

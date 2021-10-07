@@ -1,15 +1,14 @@
+interface genericObj {
+  name: string;
+  url: string;
+}
+
 export interface PokemonInterface {
   abilities: {
-    ability: {
-      name: string;
-      url: string;
-    };
+    ability: genericObj;
   }[];
   moves: {
-    move: {
-      name: string;
-      url: string;
-    };
+    move: genericObj;
   }[];
   sprites: {
     back_default: string | null;
@@ -32,62 +31,32 @@ export interface PokemonInterface {
   stats: {
     base_stat: number;
     effort: number;
-    stat: {
-      name: string;
-      url: string;
-    };
+    stat: genericObj;
   }[];
-  species: {
-    name: string;
-    url: string;
-  };
+  species: genericObj;
   types: {
     slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
+    type: genericObj;
   }[];
 }
 
 export interface typeInterface {
   damage_relations: {
-    double_damage_from: {
-      name: string;
-      url: string;
-    }[];
+    double_damage_from: genericObj[];
 
-    double_damage_to: {
-      name: string;
-      url: string;
-    }[];
+    double_damage_to: genericObj[];
 
-    half_damage_from: {
-      name: string;
-      url: string;
-    }[];
+    half_damage_from: genericObj[];
 
-    half_damage_to: {
-      name: string;
-      url: string;
-    }[];
+    half_damage_to: genericObj[];
 
-    no_damage_to: {
-      name: string;
-      url: string;
-    }[];
+    no_damage_to: genericObj[];
   };
-  pokemon: {
-    name: string;
-    url: string;
-  };
+  pokemon: genericObj;
 }
 
 export interface SpeciesInterface {
-  color: {
-    name: string;
-    url: string;
-  };
+  color: genericObj;
   evolution_chain: string;
   is_baby: boolean;
   is_legendary: boolean;
@@ -95,33 +64,33 @@ export interface SpeciesInterface {
   name: string;
 }
 
+export interface evolution_details {
+  min_level: number | null;
+  min_happiness: number | null;
+  min_beauty: number | null;
+  min_affection: number | null;
+  needs_overworld_rain: boolean;
+  location: genericObj | null;
+  known_move: null;
+  known_move_type: null;
+  gender: number;
+  trigger: genericObj;
+  item: genericObj | null;
+  held_item: genericObj | null;
+}
 export interface EvolChainInterface {
   chain: {
     evolves_to: {
-      evolution_details: {
-        min_level: number;
-        trigger: {
-          name: string;
-          url: string;
-        };
-      }[];
+      evolution_details: evolution_details[];
 
       evolves_to: {
-        species: {
-          name: string;
-          url: string;
-        };
+        evolution_details: evolution_details[];
+        species: genericObj;
       }[];
 
-      species: {
-        name: string;
-        url: string;
-      };
+      species: genericObj;
     }[];
-    species: {
-      name: string;
-      url: string;
-    };
+    species: genericObj;
   };
   id: number;
 }

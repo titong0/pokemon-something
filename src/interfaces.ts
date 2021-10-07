@@ -65,19 +65,26 @@ export interface SpeciesInterface {
 }
 
 export interface evolution_details {
+  item: genericObj | null;
+  gender: number;
+  held_item: genericObj | null;
+  known_move: genericObj | null;
+  known_move_type: null;
+  location: genericObj | null;
   min_level: number | null;
   min_happiness: number | null;
   min_beauty: number | null;
   min_affection: number | null;
   needs_overworld_rain: boolean;
-  location: genericObj | null;
-  known_move: null;
-  known_move_type: null;
-  gender: number;
+  party_species: genericObj;
+  party_type: genericObj | null;
+  relative_physical_stats: number;
+  time_of_day: string;
+  trade_species: genericObj;
   trigger: genericObj;
-  item: genericObj | null;
-  held_item: genericObj | null;
+  turn_upside_down: boolean;
 }
+
 export interface EvolChainInterface {
   chain: {
     evolves_to: {

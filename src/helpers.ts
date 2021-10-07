@@ -1,4 +1,4 @@
-import { EvolChainInterface } from "./interfaces";
+import { EvolChainInterface, evolution_details } from "./interfaces";
 
 export enum evolType {
   NoEvol = "no evolution",
@@ -42,6 +42,49 @@ export const getImgFromSpecies = (url: string): string => {
     idFromSpecies(url),
     3
   )}.png`;
+};
+
+export const evolutionText = (evolDetails: evolution_details): string => {
+  console.log(evolDetails);
+  let str = "";
+  if (!evolDetails?.trigger) return "xd";
+  const { name } = evolDetails.trigger;
+
+  switch (name) {
+    case "level-up":
+      str += "level up ";
+      break;
+
+    case "trade":
+      str += "trade ";
+      break;
+    case "use-item":
+      str += "use " + evolDetails.item?.name;
+      break;
+    case "shed":
+      str += "no se por favor ";
+      break;
+
+    default:
+      str += "galar was a mistake ";
+      break;
+  }
+  if (evolDetails.known_move) {
+    str += "while knowning " + evolDetails.known_move.name;
+  }
+  if (evolDetails.held_item) {
+    str += "while holding " + evolDetails.held_item.name;
+  }
+
+  if (evolDetails.gender) {
+    if (evolDetails.gender === 0) {
+      str += "(male)";
+    } else {
+      str += "(female)";
+    }
+  }
+
+  return str.replaceAll("-", " ");
 };
 
 export const typeClrs: any = {

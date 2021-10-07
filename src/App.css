@@ -12,6 +12,10 @@
   @apply flex justify-around;
 }
 
+.evol-chain-container img {
+  @apply w-52;
+}
+
 .moves {
   @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 pb-4 border-2;
 }

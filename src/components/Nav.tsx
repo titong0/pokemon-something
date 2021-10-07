@@ -7,7 +7,7 @@ const random = (min: number, max: number): number => {
 };
 
 const Nav = () => {
-  const [randomPkmn, setrandomPkmn] = useState(random(1, 898));
+  const [randomPkmn, setrandomPkmn] = useState(random(1, 807));
   return (
     <nav
       className="bg-yellow-200 py-3 text-gray-300"
@@ -24,7 +24,7 @@ const Nav = () => {
           <Link
             to={"/pokemon/" + randomPkmn}
             onClick={() => {
-              setrandomPkmn(random(1, 898));
+              setrandomPkmn(random(1, 807));
             }}
           >
             Random pokemon

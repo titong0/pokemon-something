@@ -20,9 +20,9 @@ const Chain: React.FC<ChainProps> = (props) => {
     <div className="evol-chain-container flex justify-center">
       {evolType === "Eevee" ? (
         <div className="eevee-evolution">
-          <div className="flex justify-center ">
+          <div className="md:row-start-2 col-start-2 flex justify-center ">
             <img
-              className="row-start-2 col-start-2"
+              className=""
               src={getImgFromSpecies(props.chain.chain.species.url)}
               onClick={() =>
                 routerHistory.push(

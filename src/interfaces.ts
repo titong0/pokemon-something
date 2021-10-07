@@ -69,7 +69,7 @@ export interface evolution_details {
   gender: number;
   held_item: genericObj | null;
   known_move: genericObj | null;
-  known_move_type: null;
+  known_move_type: genericObj | null;
   location: genericObj | null;
   min_level: number | null;
   min_happiness: number | null;

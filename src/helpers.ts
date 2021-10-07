@@ -70,10 +70,54 @@ export const evolutionText = (evolDetails: evolution_details): string => {
       break;
   }
   if (evolDetails.known_move) {
-    str += "while knowning " + evolDetails.known_move.name;
+    str += `while knowning ${evolDetails.known_move.name} `;
+  }
+  if (evolDetails.known_move_type) {
+    str += `while knowing a move of type ${evolDetails.known_move_type.name} `;
   }
   if (evolDetails.held_item) {
-    str += "while holding " + evolDetails.held_item.name;
+    str += `while holding ${evolDetails.held_item.name} `;
+  }
+  if (evolDetails.min_level) {
+    str += `to ${evolDetails.min_level} `;
+  }
+  if (evolDetails.location) {
+    str += `at ${evolDetails.location.name} `;
+  }
+  if (evolDetails.min_affection) {
+    str += `with affection at level ${evolDetails.min_affection} `;
+  }
+  if (evolDetails.min_beauty) {
+    str += `with beauty at level ${evolDetails.min_beauty} `;
+  }
+  if (evolDetails.min_happiness) {
+    str += `with happiness at level ${evolDetails.min_happiness} `;
+  }
+  if (evolDetails.needs_overworld_rain) {
+    str += `while its raining `;
+  }
+  if (evolDetails.party_species) {
+    str += `with ${evolDetails.party_species.name} in party`;
+  }
+  if (evolDetails.party_type) {
+    str += `with pokemon of type ${evolDetails.party_type.name} in party`;
+  }
+
+  if (evolDetails.time_of_day) {
+    str += `at ${evolDetails.time_of_day}time`;
+  }
+
+  if (evolDetails.relative_physical_stats) {
+    let value = evolDetails.relative_physical_stats;
+    if (value === 1) {
+      str += "while attack is higher than defense";
+    }
+    if (value === 0) {
+      str += "while attack is equal to defense";
+    }
+    if (value === -1) {
+      str += "while attack is lower than defense";
+    }
   }
 
   if (evolDetails.gender) {

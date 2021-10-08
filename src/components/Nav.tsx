@@ -1,5 +1,4 @@
 import { NavLink as Link } from "react-router-dom";
-import React from "react";
 import { useState } from "react";
 
 const random = (min: number, max: number): number => {

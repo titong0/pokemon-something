@@ -1,10 +1,5 @@
-import {
-  getPokemon,
-  typesImgs,
-  getEvolutionChain,
-  getSpecies,
-} from "../service";
-import { betterColors } from "../helpers";
+import { getPokemon, getEvolutionChain, getSpecies } from "../service";
+import { betterColors, getFullImgFromSpecies } from "../helpers";
 import { useState, useEffect } from "react";
 import {
   PokemonInterface,
@@ -12,6 +7,7 @@ import {
   SpeciesInterface,
 } from "../interfaces";
 
+import Types from "./Types";
 import Moves from "./Moves";
 import Chain from "./Chain";
 
@@ -40,37 +36,24 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
     <div>
       {pkmnData !== null ? (
         <div
-          className="pokemon-container"
+          className={`pokemon-container `}
           style={{
             backgroundColor: betterColors[pkmnSpecies?.color?.name || ""],
           }}
         >
-          <h1 className="text-6xl text-center mb-3 text-gray-900 font-semibold uppercase">
+          <h1 className="text-5xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
-          <div>
-            {evolChain ? (
-              <Chain chain={evolChain} pkmnData={pkmnData}></Chain>
-            ) : null}
+          <h2 className="text-3xl text-center">#{pkmnData.id}</h2>
+          <div className="flex flex-col items-center justify-center">
+            <img
+              className="w-96"
+              src={getFullImgFromSpecies(pkmnData.species.url)}
+              alt={pkmnData.species.name}
+            />
+            <Types pkmnData={pkmnData} />
           </div>
-          <div className="grid sm:grid-cols-2 gap-2 items-start ">
-            <span className="flex row-start-2 col-start-1 mt-1 ">
-              <a href={`/type/${pkmnData.types[0].type.name}`}>
-                <img
-                  className="type-img"
-                  src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
-                  alt={pkmnData.types[0].type.name}
-                />
-              </a>
-              <a href={`/type/${pkmnData.types[1]?.type.name}`}>
-                <img
-                  className="type-img"
-                  src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
-                  alt={pkmnData.types[1]?.type.name}
-                />
-              </a>
-            </span>
-          </div>
+          {evolChain ? <Chain chain={evolChain}></Chain> : null}
           <Moves pkmnData={pkmnData}></Moves>
         </div>
       ) : (

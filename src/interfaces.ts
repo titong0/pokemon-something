@@ -10,6 +10,7 @@ export interface PokemonInterface {
   moves: {
     move: genericObj;
   }[];
+  id: number;
   sprites: {
     back_default: string | null;
     back_female: string | null;

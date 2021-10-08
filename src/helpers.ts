@@ -38,6 +38,12 @@ const pad = (number: number | string, length: number): string => {
 };
 
 export const getImgFromSpecies = (url: string): string => {
+  return `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/${pad(
+    idFromSpecies(url),
+    3
+  )}.png`;
+};
+export const getFullImgFromSpecies = (url: string): string => {
   return `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pad(
     idFromSpecies(url),
     3
@@ -45,7 +51,6 @@ export const getImgFromSpecies = (url: string): string => {
 };
 
 export const evolutionText = (evolDetails: evolution_details): string => {
-  console.log(evolDetails);
   let str = "";
   if (!evolDetails?.trigger) return "xd";
   const { name } = evolDetails.trigger;
@@ -70,13 +75,13 @@ export const evolutionText = (evolDetails: evolution_details): string => {
       break;
   }
   if (evolDetails.known_move) {
-    str += `while knowning ${evolDetails.known_move.name} `;
+    str += ` knowning ${evolDetails.known_move.name} `;
   }
   if (evolDetails.known_move_type) {
-    str += `while knowing a move of type ${evolDetails.known_move_type.name} `;
+    str += ` knowing a move of type ${evolDetails.known_move_type.name} `;
   }
   if (evolDetails.held_item) {
-    str += `while holding ${evolDetails.held_item.name} `;
+    str += ` holding ${evolDetails.held_item.name} `;
   }
   if (evolDetails.min_level) {
     str += `to ${evolDetails.min_level} `;
@@ -85,16 +90,16 @@ export const evolutionText = (evolDetails: evolution_details): string => {
     str += `at ${evolDetails.location.name} `;
   }
   if (evolDetails.min_affection) {
-    str += `with affection at level ${evolDetails.min_affection} `;
+    str += `with ${evolDetails.min_affection} affection `;
   }
   if (evolDetails.min_beauty) {
-    str += `with beauty at level ${evolDetails.min_beauty} `;
+    str += `with ${evolDetails.min_beauty} beauty `;
   }
   if (evolDetails.min_happiness) {
-    str += `with happiness at level ${evolDetails.min_happiness} `;
+    str += `with ${evolDetails.min_happiness} happiness `;
   }
   if (evolDetails.needs_overworld_rain) {
-    str += `while its raining `;
+    str += ` its raining `;
   }
   if (evolDetails.party_species) {
     str += `with ${evolDetails.party_species.name} in party`;
@@ -110,21 +115,22 @@ export const evolutionText = (evolDetails: evolution_details): string => {
   if (evolDetails.relative_physical_stats) {
     let value = evolDetails.relative_physical_stats;
     if (value === 1) {
-      str += "while attack is higher than defense";
+      str += "with attack higher than defense";
     }
     if (value === 0) {
-      str += "while attack is equal to defense";
+      str += "with attack equal to defense";
     }
     if (value === -1) {
-      str += "while attack is lower than defense";
+      str += "with attack lower than defense";
     }
   }
 
   if (evolDetails.gender) {
-    if (evolDetails.gender === 0) {
-      str += "(male)";
-    } else {
+    console.log(evolDetails.gender);
+    if (evolDetails.gender === 1) {
       str += "(female)";
+    } else {
+      str += "(male)";
     }
   }
 

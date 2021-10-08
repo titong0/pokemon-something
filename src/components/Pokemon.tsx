@@ -48,7 +48,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
           <h1 className="text-6xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
-          <div className="col-span-2">
+          <div>
             {evolChain ? (
               <Chain chain={evolChain} pkmnData={pkmnData}></Chain>
             ) : null}

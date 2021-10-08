@@ -8,12 +8,11 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.pokemon-image {
-  @apply flex justify-around;
+.normal-evol {
 }
 
 .evol-chain-container img {
-  @apply w-52;
+  @apply w-28;
 }
 
 .moves {

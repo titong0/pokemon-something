@@ -15,9 +15,11 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
   const [pkmnSpecies, setpkmnSpecies] = useState<SpeciesInterface | null>(null);
   const [evolChain, setevolChain] = useState<EvolChainInterface | null>(null);
-
+  console.log("render")
   useEffect(() => {
     setpkmnData(null);
+    setpkmnSpecies(null);
+    setevolChain(null);
     getPokemon(match.params.name).then((i: PokemonInterface) => {
       document.title = i.species.name;
       setpkmnData(i);
@@ -44,7 +46,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
           <h1 className="text-5xl text-center mb-3 text-gray-900 font-semibold uppercase">
             {pkmnData.species.name}
           </h1>
-          <h2 className="text-3xl text-center">#{pkmnData.id}</h2>
+          <h2 className="text-3xl text-center">{`#${pkmnData.id}`}</h2>
           <div className="flex flex-col items-center justify-center">
             <img
               className="w-96"

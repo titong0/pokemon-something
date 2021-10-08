@@ -1,5 +1,5 @@
 import { EvolChainInterface } from "../interfaces";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import {
   getEvolType,
@@ -18,6 +18,7 @@ const Chain: React.FC<ChainProps> = (props) => {
   const chainCols = first.evolves_to[0]?.evolves_to[0]
     ? "grid-cols-3"
     : "grid-cols-2";
+
   const chainRows =
     first.species.name === "tyrogue"
       ? "grid-rows-3"
@@ -77,7 +78,7 @@ const Chain: React.FC<ChainProps> = (props) => {
                 </>
               ) : (
                 <>
-                  <PkmnImage evol={i} />
+                  <PkmnImage evol={i} classes="row-span-full" />
                   {i.evolves_to[0] ? (
                     <>
                       {i.evolves_to.map((evol) => (
@@ -98,14 +99,19 @@ const Chain: React.FC<ChainProps> = (props) => {
 interface imgProps {
   evol: any;
   text?: string;
+  classes?: string;
 }
 const PkmnImage: React.FC<imgProps> = (props: any) => {
   return (
-    <div className="flex flex-col justify-center items-center ">
+    <div
+      className={`flex flex-col justify-center items-center ${props.classes}`}
+    >
       <span className="max-w-xs text-center">
         {props.text ?? evolutionText(props.evol.evolution_details[0])}
       </span>
-      <img src={getImgFromSpecies(props.evol.species.url)} alt="" />
+      <img 
+        
+      src={getImgFromSpecies(props.evol.species.url)} alt="" />
       <span className="bg-gray-300 p-1 border-2 rounded-md">
         {props.evol.species.name}
       </span>

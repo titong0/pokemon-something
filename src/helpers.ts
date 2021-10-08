@@ -67,9 +67,7 @@ export const evolutionText = (evolDetails: evolution_details): string => {
       str += "use " + evolDetails.item?.name;
       break;
     case "shed":
-      str += "no se por favor ";
-      break;
-
+      return "level up to 20 with empty poke ball and space in party";
     default:
       str += "galar was a mistake ";
       break;
@@ -111,6 +109,12 @@ export const evolutionText = (evolDetails: evolution_details): string => {
   if (evolDetails.time_of_day) {
     str += `at ${evolDetails.time_of_day}time`;
   }
+  if (evolDetails.trade_species) {
+    str += `trade for ${evolDetails.trade_species.name}`;
+  }
+  if (evolDetails.turn_upside_down) {
+    str += `while switch is upside down`;
+  }
 
   if (evolDetails.relative_physical_stats) {
     let value = evolDetails.relative_physical_stats;
@@ -133,7 +137,6 @@ export const evolutionText = (evolDetails: evolution_details): string => {
       str += "(male)";
     }
   }
-
   return str.replaceAll("-", " ");
 };
 

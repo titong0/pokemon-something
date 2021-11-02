@@ -1,6 +1,5 @@
 .pokemon-container {
   @apply border-red-400 rounded-sm p-1 bg-yellow-400 flex flex-col justify-center;
-  /* background-color: red; */
 }
 
 .damage-relations {
@@ -8,26 +7,14 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.normal-evol {
-}
-
-
-
 .moves {
-  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 pb-4 border-2;
+  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 border-2;
 }
 
 .eevee-evolution {
-  @apply sm:flex h-auto flex-col md:grid grid-cols-3 gap-8 grid-rows-3 justify-items-center mx-4 text-center;
+  @apply sm:flex md:grid grid-cols-3 gap-8 grid-rows-3 justify-items-center mx-4 text-center;
 }
-.eevee-evolution img {
-  cursor: pointer;
-  /* height: 175px; */
-  /* width: 175px; */
-}
-/* .pokemon-container span img {
-  @apply;
-} */
+
 .overflow-y-scroll::-webkit-scrollbar {
   width: 10px;
   height: 90px;
@@ -39,5 +26,14 @@
 }
 
 .type-img {
-  @apply m-1 inline-block filter drop-shadow-xl transform hover:scale-105;
+  @apply max-w-full max-h-full inline-block filter drop-shadow-xl transform;
+}
+
+.pokedex-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+}
+
+::selection{
+  background: yellow;
 }

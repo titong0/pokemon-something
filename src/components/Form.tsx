@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 export interface FormProps {
   infoType: string;
   color: string;
+  children?: string;
 }
 
 const Form: React.FC<FormProps> = (props) => {
@@ -19,19 +20,19 @@ const Form: React.FC<FormProps> = (props) => {
   };
   return (
     <form
-      className={`flex flex-col bg-${props.color}-300 p-3`}
+      className={`flex flex-col bg-${props.color}-300 p-3 text-gray-600`}
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl">Inspect a {props.infoType}</h2>
       <input
-        placeholder="enter a pokemon name or ID"
+        placeholder={props.children || "nothing"}
         type="text"
         className="p-2 bg-blue-200 border-4 my-2"
         value={data}
         onChange={(e) => handleChange(e)}
       />
       <button
-        className="w-1/5 border-2 rounded-lg text-white bg-blue-700"
+        className="border-2 rounded-lg text-white bg-blue-700"
         type="submit"
       >
         Submit

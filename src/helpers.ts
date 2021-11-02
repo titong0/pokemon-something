@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { EvolChainInterface, evolution_details } from "./interfaces";
 
 export enum evolType {
@@ -52,7 +53,7 @@ export const getFullImgFromSpecies = (url: string): string => {
 
 export const evolutionText = (evolDetails: evolution_details): string => {
   let str = "";
-  if (!evolDetails?.trigger) return "xd";
+  if (!evolDetails?.trigger) return "ummm let me think this one";
   const { name } = evolDetails.trigger;
 
   switch (name) {
@@ -130,7 +131,6 @@ export const evolutionText = (evolDetails: evolution_details): string => {
   }
 
   if (evolDetails.gender) {
-    console.log(evolDetails.gender);
     if (evolDetails.gender === 1) {
       str += "(female)";
     } else {
@@ -140,6 +140,14 @@ export const evolutionText = (evolDetails: evolution_details): string => {
   return str.replaceAll("-", " ");
 };
 
+export const usePrevious = <T>(value: T): T | undefined => {
+  const ref = useRef<T>();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
 export const typeClrs: any = {
   NORMAL: "#9098a2",
   FIGHTING: "#cf3f6a",
@@ -171,7 +179,7 @@ export const betterColors: any = {
   green: "#8abd8a",
   pink: "#ed829c",
   purple: "#c7b6d8",
-  red: "#f44336",
+  red: "#cc483c",
   white: "#eeeeee",
   yellow: "#e9cb62",
 };

@@ -1,27 +1,22 @@
-import { PokemonInterface } from "../interfaces";
 import { typesImgs } from "../service";
 
 export interface TypesProps {
-  pkmnData: PokemonInterface;
+  types: any[];
 }
-const Types: React.FC<TypesProps> = ({ pkmnData }) => {
+const Types: React.FC<TypesProps> = ({ types }) => {
   return (
-    <span className="flex row-start-2 col-start-1 mt-1 ">
-      <a href={`/type/${pkmnData.types[0].type.name}`}>
-        <img
-        
-          className="type-img"
-          src={typesImgs[pkmnData.types[0].type.name.toUpperCase()]}
-          alt={pkmnData.types[0].type.name}
-        />
-      </a>
-      <a href={`/type/${pkmnData.types[1]?.type.name}`}>
-        <img
-          className="type-img"
-          src={typesImgs[pkmnData.types[1]?.type.name.toUpperCase()]}
-          alt={pkmnData.types[1]?.type.name}
-        />
-      </a>
+    <span className="flex justify-around h-full">
+      {types.map((i) => {
+        return (
+          <a href={`/type/${i.type.name}`}>
+            <img
+              className="type-img "
+              src={typesImgs[i.type.name.toUpperCase()]}
+              alt={i.type.name}
+            />
+          </a>
+        );
+      })}
     </span>
   );
 };

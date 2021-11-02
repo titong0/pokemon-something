@@ -1,121 +1,125 @@
+import PkmnImage from "./PkmnImage";
 import { EvolChainInterface } from "../interfaces";
-import React from "react";
-
-import {
-  getEvolType,
-  getImgFromSpecies,
-  idFromSpecies,
-  evolutionText,
-} from "../helpers";
+import React, { useEffect, useState } from "react";
+import { getTypesFromChain } from "../service";
+import { getEvolType, usePrevious } from "../helpers";
 import { useHistory } from "react-router";
 
 export interface ChainProps {
   chain: EvolChainInterface;
 }
 
+interface evolTypes {
+  name: string;
+  types: string[][];
+}
+
 const Chain: React.FC<ChainProps> = (props) => {
   const first = props.chain.chain;
+  const prevFirst = usePrevious(props.chain.chain);
+
+  const [chainTypes, setchainTypes] = useState<evolTypes[] | null>(null);
+  const routerHistory = useHistory();
   const chainCols = first.evolves_to[0]?.evolves_to[0]
     ? "grid-cols-3"
     : "grid-cols-2";
-
   const chainRows =
     first.species.name === "tyrogue"
       ? "grid-rows-3"
       : first.evolves_to[1] || first.evolves_to[0]?.evolves_to[1]
       ? "grid-rows-2"
       : "grid-rows-1";
-  const routerHistory = useHistory();
+
+  useEffect(() => {
+    if (first !== prevFirst) {
+      getTypesFromChain(props.chain).then((i) => setchainTypes(i));
+    }
+  }, []);
 
   const evolType = getEvolType(props.chain);
   return (
-    <div className={`mx-6 place-items-center`}>
-      {!first.evolves_to[0] ? (
-        <div className="flex items-center flex-col">
-          <h3>{first.species.name} doesnt evolve</h3>
-        </div>
-      ) : evolType === "Eevee" ? (
-        <div className="eevee-evolution">
-          <div className="md:row-start-2 col-start-2 flex justify-center ">
-            <img
-              className="self-center"
-              src={getImgFromSpecies(first.species.url)}
-              onClick={() =>
-                routerHistory.push("" + idFromSpecies(first.species.url))
-              }
-              alt=""
-            />
-          </div>
-          {first.evolves_to.map((i) => (
-            <div className="flex justify-center items-center flex-col">
-              <span>{evolutionText(i.evolution_details[0])}</span>
-              <img
-                onClick={() =>
-                  routerHistory.push("" + idFromSpecies(i.species.url))
-                }
-                src={getImgFromSpecies(i.species.url)}
-                alt={i.species.name}
-              />
+    <>
+      {chainTypes !== null ? (
+        <div className={`m-6 place-items-center`}>
+          {!first.evolves_to[0] ? (
+            <div className="flex items-center flex-col">
+              <h3>{first.species.name} doesnt evolve</h3>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div
-          className={`grid ${chainRows} ${chainCols} items-center place-items-center`}
-        >
-          <div className="row-start-1 row-span-full">
-            <PkmnImage evol={first} text="born" />
-          </div>
-          {first.evolves_to.map((i) => (
-            <>
-              {/* if the first pkmn evolves to two different ones */}
-              {first.evolves_to[1] ? (
+          ) : evolType === "Eevee" ? (
+            <div className="eevee-evolution">
+              <div className="md:row-start-2 col-start-2 flex justify-center ">
+                <PkmnImage
+                  types={chainTypes}
+                  history={routerHistory}
+                  pkmn={first}
+                />
+              </div>
+              {first.evolves_to.map((i) => (
+                <PkmnImage
+                  types={chainTypes}
+                  history={routerHistory}
+                  pkmn={i}
+                />
+              ))}
+            </div>
+          ) : (
+            <div
+              className={`sm:flex flex-col md:grid ${chainRows} ${chainCols} items-center place-items-center `}
+            >
+              <div className="row-start-1 row-span-full">
+                <PkmnImage
+                  types={chainTypes}
+                  history={routerHistory}
+                  pkmn={first}
+                  text="born"
+                />
+              </div>
+              {first.evolves_to.map((i) => (
                 <>
-                  <PkmnImage evol={i} />
-                  {i.evolves_to[0] ? (
-                    <PkmnImage evol={i.evolves_to[0]} />
-                  ) : null}
-                </>
-              ) : (
-                <>
-                  <PkmnImage evol={i} classes="row-span-full" />
-                  {i.evolves_to[0] ? (
+                  {/* if the first pkmn evolves to two different ones */}
+                  {first.evolves_to[1] ? (
                     <>
-                      {i.evolves_to.map((evol) => (
-                        <PkmnImage evol={evol} />
-                      ))}
+                      <PkmnImage
+                        types={chainTypes}
+                        history={routerHistory}
+                        pkmn={i}
+                      />
+                      {i.evolves_to[0] ? (
+                        <PkmnImage
+                          types={chainTypes}
+                          history={routerHistory}
+                          pkmn={i.evolves_to[0]}
+                        />
+                      ) : null}
                     </>
-                  ) : null}
+                  ) : (
+                    <>
+                      <PkmnImage
+                        types={chainTypes}
+                        history={routerHistory}
+                        pkmn={i}
+                        classes="row-span-full"
+                      />
+                      {i.evolves_to[0] ? (
+                        <>
+                          {i.evolves_to.map((pkmn) => (
+                            <PkmnImage
+                              types={chainTypes}
+                              history={routerHistory}
+                              pkmn={pkmn}
+                            />
+                          ))}
+                        </>
+                      ) : null}
+                    </>
+                  )}
                 </>
-              )}
-            </>
-          ))}
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-};
-
-interface imgProps {
-  evol: any;
-  text?: string;
-  classes?: string;
-}
-const PkmnImage: React.FC<imgProps> = (props: any) => {
-  return (
-    <div
-      className={`flex flex-col justify-center items-center ${props.classes}`}
-    >
-      <span className="max-w-xs text-center">
-        {props.text ?? evolutionText(props.evol.evolution_details[0])}
-      </span>
-      <img 
-        
-      src={getImgFromSpecies(props.evol.species.url)} alt="" />
-      <span className="bg-gray-300 p-1 border-2 rounded-md">
-        {props.evol.species.name}
-      </span>
-    </div>
+      ) : null}
+    </>
   );
 };
 

@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Pokemon from "./components/Pokemon";
-import Search from "./components/Search";
 import Type from "./components/Type";
-import Move from "./components/Move";
 import Nav from "./components/Nav";
+import Home from "./components/Home";
 import "./App.css";
 
 function App() {
@@ -13,9 +12,8 @@ function App() {
         <Nav />
         <Switch>
           <Route path="/type/:type" component={Type} exact />
-          <Route path="/move/:name" component={Move} exact />
           <Route path="/pokemon/:name" component={Pokemon} exact />
-          <Route path="/" component={Search} />
+          <Route path="/" component={Home} />
         </Switch>
       </Router>
     </div>

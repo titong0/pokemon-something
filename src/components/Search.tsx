@@ -4,10 +4,13 @@ export interface FormProps {}
 
 const Search: React.FC<FormProps> = () => {
   return (
-    <div>
-      <Form infoType="pokemon" color="yellow" />
-      <Form infoType="type" color="red" />
-      <Form infoType="move" color="blue" />
+    <div className="absolute left-0 top-9 z-10">
+      <Form infoType="pokemon" color="yellow">
+        Enter a pokemon name or ID
+      </Form>
+      <Form infoType="type" color="blue">
+        Enter a type (english!)
+      </Form>
     </div>
   );
 };

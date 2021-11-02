@@ -1,9 +1,9 @@
+import { EvolChainInterface } from "./interfaces";
+
 const API = "https://pokeapi.co/api/v2";
 
 export const getPokemon = (pokemon: string): Promise<any> => {
-  return fetch(`${API}/pokemon/${pokemon}`).then((res) => {
-    return res.json();
-  });
+  return fetch(`${API}/pokemon/${pokemon}`);
 };
 export const getSpecies = (pokemon: string): Promise<any> => {
   return fetch(`${API}/pokemon-species/${pokemon}`).then((res) => {
@@ -19,6 +19,33 @@ export const getEvolutionChain = (url: string): Promise<any> => {
 
 export const getType = (type: string): Promise<any> => {
   return fetch(`${API}/type/${type}`).then((res) => {
+    return res.json();
+  });
+};
+
+export const getTypesFromChain = async (chain: EvolChainInterface) => {
+  const types = <any>[];
+  const names = [chain.chain.species.name];
+
+  chain.chain.evolves_to.forEach((i) => {
+    names.push(i.species.name);
+    i.evolves_to.forEach((i) => names.push(i.species.name));
+  });
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i];
+    const pkmnData = await fetch(`${API}/pokemon/${name}`).then((res) => {
+      return res.json();
+    });
+    types.push({
+      pkmn: pkmnData.species.name,
+      types: pkmnData.types,
+    });
+  }
+  return types;
+};
+
+export const getPokedex = (): Promise<any> => {
+  return fetch(`https://pokeapi.co/api/v2/pokedex/1`).then((res) => {
     return res.json();
   });
 };

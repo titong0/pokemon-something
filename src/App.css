@@ -8,7 +8,7 @@
 }
 
 .moves {
-  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 border-2;
+  @apply col-span-2 sm:text-xl text-xl place-self-center w-5/6 border-2 bg-yellow-400;
 }
 
 .eevee-evolution {
@@ -34,6 +34,6 @@
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
 }
 
-::selection{
+::selection {
   background: yellow;
 }

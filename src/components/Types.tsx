@@ -8,7 +8,7 @@ const Types: React.FC<TypesProps> = ({ types }) => {
     <span className="flex justify-around h-full">
       {types.map((i) => {
         return (
-          <a href={`/type/${i.type.name}`}>
+          <a href={`/type/${i.type.name}`} key={i.type.name}>
             <img
               className="type-img "
               src={typesImgs[i.type.name.toUpperCase()]}

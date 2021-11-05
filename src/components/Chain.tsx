@@ -1,6 +1,6 @@
 import PkmnImage from "./PkmnImage";
 import { EvolChainInterface } from "../interfaces";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { getTypesFromChain } from "../service";
 import { getEvolType, usePrevious } from "../helpers";
 import { useHistory } from "react-router";
@@ -34,7 +34,7 @@ const Chain: React.FC<ChainProps> = (props) => {
     if (first !== prevFirst) {
       getTypesFromChain(props.chain).then((i) => setchainTypes(i));
     }
-  }, []);
+  });
 
   const evolType = getEvolType(props.chain);
   return (
@@ -56,6 +56,7 @@ const Chain: React.FC<ChainProps> = (props) => {
               </div>
               {first.evolves_to.map((i) => (
                 <PkmnImage
+                  key={i.species.name}
                   types={chainTypes}
                   history={routerHistory}
                   pkmn={i}
@@ -75,17 +76,19 @@ const Chain: React.FC<ChainProps> = (props) => {
                 />
               </div>
               {first.evolves_to.map((i) => (
-                <>
+                <Fragment key={i.species.name}>
                   {/* if the first pkmn evolves to two different ones */}
                   {first.evolves_to[1] ? (
                     <>
                       <PkmnImage
+                        key={i.species.name}
                         types={chainTypes}
                         history={routerHistory}
                         pkmn={i}
                       />
                       {i.evolves_to[0] ? (
                         <PkmnImage
+                          key={i.species.name}
                           types={chainTypes}
                           history={routerHistory}
                           pkmn={i.evolves_to[0]}
@@ -95,6 +98,7 @@ const Chain: React.FC<ChainProps> = (props) => {
                   ) : (
                     <>
                       <PkmnImage
+                        key={i.species.name}
                         types={chainTypes}
                         history={routerHistory}
                         pkmn={i}
@@ -104,6 +108,7 @@ const Chain: React.FC<ChainProps> = (props) => {
                         <>
                           {i.evolves_to.map((pkmn) => (
                             <PkmnImage
+                              key={pkmn.species.name}
                               types={chainTypes}
                               history={routerHistory}
                               pkmn={pkmn}
@@ -113,12 +118,14 @@ const Chain: React.FC<ChainProps> = (props) => {
                       ) : null}
                     </>
                   )}
-                </>
+                </Fragment>
               ))}
             </div>
           )}
         </div>
-      ) : null}
+      ) : (
+        <div className="text-center">loading...</div>
+      )}
     </>
   );
 };

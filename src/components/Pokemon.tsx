@@ -1,24 +1,31 @@
 import { getPokemon, getEvolutionChain, getSpecies } from "../service";
 import { betterColors, getFullImgFromSpecies } from "../helpers";
 import { useState, useEffect } from "react";
+
 import {
   PokemonInterface,
   EvolChainInterface,
   SpeciesInterface,
 } from "../interfaces";
-
+import { useHistory } from "react-router-dom";
 import Types from "./Types";
 import Moves from "./Moves";
 import Chain from "./Chain";
 
+
+
 const Pokemon: React.FC<{ match: any }> = ({ match }) => {
-  const [exists, setexists] = useState(false);
+  const History = useHistory();
+  const [exists, setexists] = useState(true);
   const [pkmnData, setpkmnData] = useState<PokemonInterface | null>(null);
   const [pkmnSpecies, setpkmnSpecies] = useState<SpeciesInterface | null>(null);
   const [evolChain, setevolChain] = useState<EvolChainInterface | null>(null);
   useEffect(() => {
     getPokemon(match.params.name).then((i) => {
-      i.status === 404 ? setexists(false) : setexists(true);
+      if (i.status === 404) {
+        return setexists(false);
+      }
+      setexists(true);
       i.json().then((i: PokemonInterface) => {
         document.title = i.species.name;
         setpkmnData(i);
@@ -39,7 +46,13 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   return (
     <div>
       {!exists ? (
-        <div>No pokemon found with this name</div>
+        <div>
+          No pokemon found with this name, redirecting to home...{" "}
+          <span className="text-red-600">
+            {setTimeout(() => History.replace(""), 3000)} this number shouldn't
+            be here I'm not sure what it means
+          </span>
+        </div>
       ) : (
         <>
           {evolChain !== null && pkmnData !== null ? (

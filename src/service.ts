@@ -24,12 +24,13 @@ export const getType = (type: string): Promise<any> => {
 };
 
 export const getTypesFromChain = async (chain: EvolChainInterface) => {
-  const types = <any>[];
+  const types = [] as any;
   const names = [chain.chain.species.name];
 
   chain.chain.evolves_to.forEach((i) => {
     names.push(i.species.name);
     i.evolves_to.forEach((i) => names.push(i.species.name));
+    
   });
   for (let i = 0; i < names.length; i++) {
     const name = names[i];

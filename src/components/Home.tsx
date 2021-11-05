@@ -12,22 +12,26 @@ const Home = () => {
   return (
     <div className="pokedex-container">
       {pokedex !== null
-        ? pokedex.pokemon_entries.map((i: any, index: number) => (
-            <>
-              {index < 807 ? (
+        ? pokedex.pokemon_entries
+            .filter((i: any, index: number) => index < 807)
+            .map((i: any, index: number) => {
+              return (
                 <div
                   className="flex justify-center items-center m-1 p-2 border-2 transition-colors hover:border-gray-700"
                   onClick={() => {
                     history.replace(`pokemon/${index + 1}`);
                   }}
-                  key={i.pokemon_species.urls}
+                  key={i.pokemon_species.url}
                 >
-                  <img src={getImgFromSpecies(i.pokemon_species.url)} alt="" />
+                  <img
+                    src={getImgFromSpecies(i.pokemon_species.url)}
+                    alt={i.pokemon_species.name}
+                    key={i.pokemon_species.url}
+                  />
                 </div>
-              ) : null}
-            </>
-          ))
-        : null}
+              );
+            })
+        : "loading pokedex"}
     </div>
   );
 };

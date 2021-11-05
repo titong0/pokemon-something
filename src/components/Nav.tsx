@@ -14,7 +14,7 @@ const Nav = () => {
       className="bg-yellow-200 py-3 text-gray-300"
       style={{ backgroundColor: "#205bab" }}
     >
-      <ul className="flex justify-between flex-row relative mx-2 md:mx-8 ">
+      <ul className="flex justify-between flex-row mx-2 md:mx-8 ">
         <span
           className="cursor-pointer"
           onClick={() => togglesearch(!showSearch)}
@@ -29,7 +29,7 @@ const Nav = () => {
             alt=""
           />
         </span>
-        {showSearch ? <Search /> : null}
+        {showSearch ? <Search hide={() => togglesearch(false)} /> : null}
 
         <li>
           <Link to="/">Home</Link>

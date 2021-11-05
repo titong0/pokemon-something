@@ -16,6 +16,7 @@ const Form: React.FC<FormProps> = (props) => {
   };
 
   const handleSubmit = () => {
+    routerHistory.replace("");
     routerHistory.push(`${props.infoType}/${data.toLowerCase()}`);
   };
   return (

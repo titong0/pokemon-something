@@ -12,7 +12,9 @@ export interface imgProps {
 const PkmnImage: React.FC<imgProps> = (props) => {
   return (
     <div
-      className={`my-8 flex flex-col justify-between items-center ${props.classes} `}
+      className={`my-8 flex flex-col justify-between items-center ${
+        props.classes ? props.classes : ""
+      }`}
     >
       <span className="max-w-xs text-center text-xl">
         {props.text ?? evolutionText(props.pkmn.evolution_details[0])}

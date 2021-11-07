@@ -12,7 +12,7 @@
 }
 
 .eevee-evolution {
-  @apply sm:flex md:grid grid-cols-3 gap-8 grid-rows-3 justify-items-center mx-4 text-center;
+  @apply grid grid-cols-3 gap-8 grid-rows-3 justify-items-center mx-4 text-center;
 }
 
 .overflow-y-scroll::-webkit-scrollbar {

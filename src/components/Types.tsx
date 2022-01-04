@@ -1,5 +1,3 @@
-import { typesImgs } from "../service";
-
 export interface TypesProps {
   types: any[];
 }
@@ -11,7 +9,7 @@ const Types: React.FC<TypesProps> = ({ types }) => {
           <a href={`/type/${i.type.name}`} key={i.type.name}>
             <img
               className="type-img "
-              src={typesImgs[i.type.name.toUpperCase()]}
+              src={`/assets/Icon_${i.type.name}.png`}
               alt={i.type.name}
             />
           </a>

@@ -12,8 +12,6 @@ import Types from "./Types";
 import Moves from "./Moves";
 import Chain from "./Chain";
 
-
-
 const Pokemon: React.FC<{ match: any }> = ({ match }) => {
   const History = useHistory();
   const [exists, setexists] = useState(true);
@@ -26,10 +24,12 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
         return setexists(false);
       }
       setexists(true);
+
       i.json().then((i: PokemonInterface) => {
         document.title = i.species.name;
         setpkmnData(i);
       });
+      setevolChain(null)
       getSpecies(match.params.name)
         .then((i) => {
           setpkmnSpecies(i);
@@ -47,15 +47,16 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
     <div>
       {!exists ? (
         <div>
-          No pokemon found with this name, redirecting to home...{" "}
           <span className="text-red-600">
-            {setTimeout(() => History.replace(""), 3000)} this number shouldn't
-            be here I'm not sure what it means
+            No pokemon found with this name, redirecting to home...
+          </span>
+          <span className="hidden">
+            {setTimeout(() => History.replace(""), 3000)}
           </span>
         </div>
       ) : (
         <>
-          {evolChain !== null && pkmnData !== null ? (
+          {pkmnData !== null ? (
             <>
               {pkmnData.id >= 808 ? (
                 "All pokemon whose ID is bigger than 808 are NOT in the API used for this website."
@@ -73,22 +74,26 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                   <h2 className="text-3xl text-center">{`#${pkmnData.id}`}</h2>
                   <div className="flex flex-col items-center justify-center">
                     <img
-                      className="w-96"
+                      className="w-64"
                       src={getFullImgFromSpecies(pkmnData.species.url)}
                       alt={pkmnData.species.name}
                     />
                     <Types types={pkmnData.types} />
                   </div>
-                  <Chain
-                    key={evolChain.chain.species.name}
-                    chain={evolChain}
-                  ></Chain>
+                  {evolChain !== null ? (
+                    <Chain
+                      key={evolChain.chain.species.name}
+                      chain={evolChain}
+                    ></Chain>
+                  ) : (
+                    <div className="text-center h-12">loading evolution chain</div>
+                  )}
                   <Moves pkmnData={pkmnData}></Moves>
                 </div>
               )}
             </>
           ) : (
-            "loading..."
+            <div className="text-center">loading pokemon data</div>
           )}
         </>
       )}

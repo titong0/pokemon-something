@@ -17,7 +17,7 @@ const Home = () => {
             .map((i: any, index: number) => {
               return (
                 <div
-                  className="flex justify-center items-center m-1 p-2 border-2 transition-colors hover:border-gray-700"
+                  className="flex flex-col justify-center items-center m-1 p-2 border-2 transition-colors hover:border-gray-700 h-42"
                   onClick={() => {
                     history.replace(`pokemon/${index + 1}`);
                   }}
@@ -28,6 +28,7 @@ const Home = () => {
                     alt={i.pokemon_species.name}
                     key={i.pokemon_species.url}
                   />
+                  <span className="bg-yellow-300 border-2 rounded-md p-1 capitalize">{i.pokemon_species.name}</span>
                 </div>
               );
             })

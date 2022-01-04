@@ -1,29 +1,27 @@
 import { useEffect, useRef } from "react";
 import { EvolChainInterface, evolution_details } from "./interfaces";
 
-export enum evolType {
-  NoEvol = "no evolution",
-  Normal = "normal evolution chain",
-  Multiple = "multiple evolutions",
-  Eevee = "Eevee",
+export enum evolTypes {
+  NoEvol,
+  Normal,
+  BranchedSecond,
+  BranchedThird,
+  Eevee,
 }
 
-export const getEvolType = (evolChain: EvolChainInterface): evolType => {
-  if (evolChain.chain.species.name === "eevee") return evolType.Eevee;
-  if (evolChain.chain.evolves_to[0] === undefined) {
-    return evolType.NoEvol;
+export const getEvolType = (evolChain: EvolChainInterface): evolTypes => {
+  const first = evolChain.chain;
+  if (first.species.name === "eevee") return evolTypes.Eevee;
+  if (first.evolves_to[0] === undefined) {
+    return evolTypes.NoEvol;
   }
-  let currentPkmn = evolChain.chain;
-  while (true) {
-    if (currentPkmn.evolves_to[0] === undefined) {
-      break;
-    }
-    if (currentPkmn.evolves_to[0] && currentPkmn.evolves_to[1]) {
-      return evolType.Multiple;
-    }
-    break;
+  if (first.evolves_to[0] && first.evolves_to[1]) {
+    return evolTypes.BranchedSecond;
   }
-  return evolType.Normal;
+  if (first.evolves_to[0].evolves_to[1]) {
+    return evolTypes.BranchedThird;
+  }
+  return evolTypes.Normal;
 };
 
 export const idFromSpecies = (url: string): number => {
@@ -142,7 +140,7 @@ export const evolutionText = (evolDetails: evolution_details): string => {
 
 export const getGridVals = (chain: EvolChainInterface): string => {
   const first = chain.chain;
-  let sm = "";
+  let sm = "grid-cols-2";
   let md = "";
 
   if (first.evolves_to[0]?.evolves_to[0]) {
@@ -156,7 +154,7 @@ export const getGridVals = (chain: EvolChainInterface): string => {
     sm += "grid-cols-2";
     md += "md:grid-rows-2";
   }
-
+  console.log(sm, md);
   return `${sm} ${md}`;
 };
 

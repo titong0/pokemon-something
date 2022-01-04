@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { typesImgs, getType } from "../service";
+import { getType } from "../service";
 import { typeClrs } from "../helpers";
 import { typeInterface } from "../interfaces";
 
@@ -28,7 +28,7 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
                     <a href={`/type/${i.name}`}>
                       <img
                         className="type-img"
-                        src={typesImgs[i.name.toUpperCase()]}
+                        src={`/assets/Icon_${i.name}.png`}
                         alt={i.name}
                         title={i.name}
                       />
@@ -43,7 +43,7 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
                     <a href={`/type/${i.name}`}>
                       <img
                         className="type-img"
-                        src={typesImgs[i.name.toUpperCase()]}
+                        src={`/assets/Icon_${i.name}.png`}
                         alt={i.name}
                         title={i.name}
                       />
@@ -58,7 +58,7 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
                     <a href={`/type/${i.name}`}>
                       <img
                         className="type-img"
-                        src={typesImgs[i.name.toUpperCase()]}
+                        src={`/assets/Icon_${i.name}.png`}
                         alt={i.name}
                         title={i.name}
                       />
@@ -73,7 +73,7 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
                     <a href={`/type/${i.name}`}>
                       <img
                         className="type-img"
-                        src={typesImgs[i.name.toUpperCase()]}
+                        src={`/assets/Icon_${i.name}.png.png`}
                         alt={i.name}
                         title={i.name}
                       />

@@ -30,7 +30,7 @@ const Form: React.FC<FormProps> = (props) => {
       );
       setPkmnNames(names);
     });
-  }, []);
+  }, [props.infoType]);
 
   return (
     <form

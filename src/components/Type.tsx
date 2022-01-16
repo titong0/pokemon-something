@@ -18,8 +18,8 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
 
       {typeData !== null ? (
         <>
-          <div className="m-2">
-            <div className="damage-relations">
+          <div className="flex flex-col items-center m-2">
+            <div className="damage-relations w-full">
               <div className="m-2 p-2">
                 <h3 className="text-white text-l bg-green-600 text-center p-1 my-2 rounded-lg">
                   Double damage to
@@ -89,8 +89,9 @@ const Type: React.FC<{ match: { params: { type: string } } }> = ({ match }) => {
                 ))}
               </div>
             </div>
-            <div className="pokedex-container m-4">
+            <div className="pokedex-container m-4 w-full">
               {typeData.pokemon.map((i) => (
+                // eslint-disable-next-line
                 <object
                   onClick={() => {
                     history.replace(`/pokemon/${i.pokemon.name}`);

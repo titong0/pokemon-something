@@ -1,5 +1,5 @@
 import Types from "./Types";
-import { getImgFromSpecies, idFromSpecies, evolutionText } from "../helpers";
+import { getImgFromUrl, idFromSpecies, evolutionText } from "../helpers";
 import { useHistory } from "react-router";
 
 export interface imgProps {
@@ -14,9 +14,9 @@ const PkmnImage: React.FC<imgProps> = (props) => {
     <>
       {props.pkmn ? (
         <div
-          className={`my-8 flex flex-col justify-between items-center ${
+          className={`flex flex-col gap-1 items-center ${
             props.classes ? props.classes : ""
-          }`}
+          } md:my-8`}
         >
           <span className="max-w-xs text-center text-xl">
             {props.text ?? evolutionText(props.pkmn.evolution_details[0])}
@@ -26,7 +26,7 @@ const PkmnImage: React.FC<imgProps> = (props) => {
             onClick={() =>
               routerHistory.push("" + idFromSpecies(props.pkmn.species.url))
             }
-            src={getImgFromSpecies(props.pkmn.species.url)}
+            src={getImgFromUrl(props.pkmn.species.url)}
             alt={props.pkmn.species.name}
           />
           <div className="h-10">

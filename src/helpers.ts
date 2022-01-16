@@ -7,11 +7,13 @@ export enum evolTypes {
   BranchedSecond,
   BranchedThird,
   Eevee,
+  Tyrogue,
 }
 
 export const getEvolType = (evolChain: EvolChainInterface): evolTypes => {
   const first = evolChain.chain;
   if (first.species.name === "eevee") return evolTypes.Eevee;
+  if (first.species.name === "tyrogue") return evolTypes.Tyrogue;
   if (first.evolves_to[0] === undefined) {
     return evolTypes.NoEvol;
   }
@@ -36,13 +38,14 @@ const pad = (number: number | string, length: number): string => {
   return str;
 };
 
-export const getImgFromSpecies = (url: string): string => {
+// this accepts both a pokemon.species url and a standard pokemon url
+export const getImgFromUrl = (url: string): string => {
   return `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/${pad(
     idFromSpecies(url),
     3
   )}.png`;
 };
-export const getFullImgFromSpecies = (url: string): string => {
+export const getHDImgFromSpecies = (url: string): string => {
   return `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pad(
     idFromSpecies(url),
     3
@@ -136,26 +139,6 @@ export const evolutionText = (evolDetails: evolution_details): string => {
     }
   }
   return str.replaceAll("-", " ");
-};
-
-export const getGridVals = (chain: EvolChainInterface): string => {
-  const first = chain.chain;
-  let sm = "grid-cols-2";
-  let md = "";
-
-  if (first.evolves_to[0]?.evolves_to[0]) {
-    sm += "grid-rows-3 ";
-    md += "md:grid-cols-3 ";
-  }
-  if (first.species.name === "tyrogue") {
-    sm += "grid-cols-3";
-    md += "md:grid-rows-3";
-  } else if (first.evolves_to[1] || first.evolves_to[0]?.evolves_to[1]) {
-    sm += "grid-cols-2";
-    md += "md:grid-rows-2";
-  }
-  console.log(sm, md);
-  return `${sm} ${md}`;
 };
 
 export const usePrevious = <T>(value: T): T | undefined => {

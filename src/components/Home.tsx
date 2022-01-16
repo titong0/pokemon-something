@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPokedex } from "../service";
-import { getImgFromSpecies } from "../helpers";
+import { getImgFromUrl } from "../helpers";
 import { useHistory } from "react-router-dom";
 
 const Home = () => {
@@ -24,7 +24,7 @@ const Home = () => {
                   key={i.pokemon_species.url}
                 >
                   <img
-                    src={getImgFromSpecies(i.pokemon_species.url)}
+                    src={getImgFromUrl(i.pokemon_species.url)}
                     alt={i.pokemon_species.name}
                     key={i.pokemon_species.url}
                   />

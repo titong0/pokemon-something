@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useState } from "react";
+
 import Pokemon from "./components/Pokemon";
 import Type from "./components/Type";
 import Nav from "./components/Nav";

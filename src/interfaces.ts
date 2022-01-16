@@ -53,7 +53,10 @@ export interface typeInterface {
 
     no_damage_to: genericObj[];
   };
-  pokemon: genericObj;
+  pokemon: {
+    pokemon: genericObj;
+    slot: number;
+  }[];
 }
 
 export interface SpeciesInterface {

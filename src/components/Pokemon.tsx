@@ -1,5 +1,5 @@
 import { getPokemon, getEvolutionChain, getSpecies } from "../service";
-import { betterColors, getFullImgFromSpecies } from "../helpers";
+import { betterColors, getHDImgFromSpecies } from "../helpers";
 import { useState, useEffect } from "react";
 
 import {
@@ -29,7 +29,7 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
         document.title = i.species.name;
         setpkmnData(i);
       });
-      setevolChain(null)
+      setevolChain(null);
       getSpecies(match.params.name)
         .then((i) => {
           setpkmnSpecies(i);
@@ -75,10 +75,12 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                   <div className="flex flex-col items-center justify-center">
                     <img
                       className="w-64"
-                      src={getFullImgFromSpecies(pkmnData.species.url)}
+                      src={getHDImgFromSpecies(pkmnData.species.url)}
                       alt={pkmnData.species.name}
                     />
-                    <Types types={pkmnData.types} />
+                    <div className="w-36  ">
+                      <Types types={pkmnData.types} />
+                    </div>
                   </div>
                   {evolChain !== null ? (
                     <Chain
@@ -86,7 +88,9 @@ const Pokemon: React.FC<{ match: any }> = ({ match }) => {
                       chain={evolChain}
                     ></Chain>
                   ) : (
-                    <div className="text-center h-12">loading evolution chain</div>
+                    <div className="text-center h-12">
+                      loading evolution chain
+                    </div>
                   )}
                   <Moves pkmnData={pkmnData}></Moves>
                 </div>

@@ -23,7 +23,10 @@ const Search: React.FC<FormProps> = (props) => {
     };
   });
   return (
-    <div className="absolute left-0 top-12 z-10" ref={ref}>
+    <div
+      className="absolute left-0 top-12 z-10 shadow-2xl shadow-black w-full md:w-1/2"
+      ref={ref}
+    >
       <Form infoType="pokemon" color="yellow">
         Enter a pokemon name or ID
       </Form>

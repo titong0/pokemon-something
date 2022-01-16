@@ -15,7 +15,8 @@ const Nav = () => {
       style={{ backgroundColor: "#205bab" }}
     >
       <ul className="flex justify-between flex-row mx-2 md:mx-8 ">
-        <span
+        <button
+          tabIndex={0}
           className="cursor-pointer"
           onClick={() => togglesearch(!showSearch)}
         >
@@ -28,7 +29,7 @@ const Nav = () => {
             }
             alt=""
           />
-        </span>
+        </button>
         {showSearch ? <Search hide={() => togglesearch(false)} /> : null}
 
         <li>

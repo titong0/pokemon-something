@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { getPokedex } from "../service";
+import { getPokedex, getTypes } from "../service";
 
 export interface FormProps {
   infoType: string;
@@ -10,6 +10,7 @@ export interface FormProps {
 
 const Form: React.FC<FormProps> = (props) => {
   const [pkmnNames, setPkmnNames] = useState<string[] | null>(null);
+  const [typeNames, setTypeNames] = useState<string[] | null>(null);
   const [formValue, setFormValue] = useState("");
   const routerHistory = useHistory();
 
@@ -23,13 +24,18 @@ const Form: React.FC<FormProps> = (props) => {
   };
 
   useEffect(() => {
-    if (props.infoType !== "pokemon") return;
-    getPokedex().then((pokedex) => {
-      const names = pokedex.pokemon_entries.map(
-        (i: any) => i.pokemon_species.name
-      );
-      setPkmnNames(names);
-    });
+    if (props.infoType === "pokemon") {
+      getPokedex().then((pokedex) => {
+        const names = pokedex.pokemon_entries.map(
+          (i: any) => i.pokemon_species.name
+        );
+        setPkmnNames(names);
+      });
+    } else {
+      getTypes().then((types) => {
+        setTypeNames(types.results.map((i: any) => i.name));
+      });
+    }
   }, [props.infoType]);
 
   return (
@@ -48,20 +54,41 @@ const Form: React.FC<FormProps> = (props) => {
         value={formValue}
         onChange={(e) => handleChange(e)}
       />
-      {/* autocomplete */}
+      {/* pokemon names autocomplete */}
       {pkmnNames !== null && formValue.length >= 2
         ? pkmnNames
-            .filter((i: string) => i.startsWith(formValue))
+            .filter((i: string) => i.startsWith(formValue.toLocaleLowerCase()))
             .map((i: string) => (
               <button
-                className="text-left w-24"
+                className="text-left w-24 capitalize py-4 text-xl  "
                 tabIndex={0}
-                onClick={() => setFormValue(i)}
+                onClick={() => {
+                  setFormValue(i);
+                  handleSubmit();
+                }}
               >
                 {i}
               </button>
             ))
         : null}
+      {/* Type names autocomplete */}
+      {typeNames !== null && formValue.length >= 1
+        ? typeNames
+            .filter((i: string) => i.startsWith(formValue.toLocaleLowerCase()))
+            .map((i: string) => (
+              <button
+                className="text-left w-24 capitalize py-4 text-xl  "
+                tabIndex={0}
+                onClick={() => {
+                  setFormValue(i);
+                  handleSubmit();
+                }}
+              >
+                {i}
+              </button>
+            ))
+        : null}
+
       <button
         className="border-2 rounded-lg text-white bg-blue-700"
         type="submit"

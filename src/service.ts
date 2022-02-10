@@ -5,6 +5,7 @@ const API = "https://pokeapi.co/api/v2";
 export const getPokemon = (pokemon: string): Promise<any> => {
   return fetch(`${API}/pokemon/${pokemon}`);
 };
+
 export const getSpecies = (pokemon: string): Promise<any> => {
   return fetch(`${API}/pokemon-species/${pokemon}`).then((res) => {
     return res.json();
@@ -19,6 +20,11 @@ export const getEvolutionChain = (url: string): Promise<any> => {
 
 export const getType = (type: string): Promise<any> => {
   return fetch(`${API}/type/${type}`).then((res) => {
+    return res.json();
+  });
+};
+export const getTypes = (): Promise<any> => {
+  return fetch(`${API}/type`).then((res) => {
     return res.json();
   });
 };
